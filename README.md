@@ -97,5 +97,5 @@ textre-chat/
 
 ##  License
 
-MIT License 
+[GNU Affero General Public License v3.0](https://github.com/lhcee3/Textre/blob/main/LICENSE)
 
