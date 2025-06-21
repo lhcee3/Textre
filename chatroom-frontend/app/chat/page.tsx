@@ -76,23 +76,22 @@ export default function ChatRoom() {
     socket.emit("join_room", roomId)
 
 socket.on("receive_message", (data) => {
-  setMessages((prev) => [
-    ...prev,
-    {
-      id: Date.now().toString(),
-      sender: data.sender,
-      content: data.message,
-      timestamp: data.created_at,
-      isCurrentUser: data.sender === username,
-    },
-  ])
-})
-
-
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: Date.now().toString(),
+        sender: data.sender,
+        content: data.message,
+        timestamp: new Date(data.created_at), 
+        isCurrentUser: data.sender === username,
+      },
+    ]);
+  });
+  
     return () => {
-      socket.off("receive_message")
-    }
-  }, [roomId])
+      socket.off("receive_message");
+    };
+  }, [roomId]);
 
 const handleSendMessage = () => {
   if (message.trim()) {
