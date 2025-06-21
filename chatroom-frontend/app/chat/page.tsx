@@ -75,42 +75,36 @@ export default function ChatRoom() {
   useEffect(() => {
     socket.emit("join_room", roomId)
 
-    socket.on("receive_message", (data) => {
-      setMessages((prev) => [...prev, data])
-    })
+socket.on("receive_message", (data) => {
+  setMessages((prev) => [
+    ...prev,
+    {
+      id: Date.now().toString(),
+      sender: data.sender,
+      content: data.message,
+      timestamp: data.created_at,
+      isCurrentUser: data.sender === username,
+    },
+  ])
+})
+
 
     return () => {
       socket.off("receive_message")
     }
   }, [roomId])
 
-  const handleSendMessage = () => {
-    if (message.trim()) {
-      const newMessage: Message = {
-        id: Date.now().toString(),
-        sender: username,
-        content: message,
-        timestamp: new Date(),
-        isCurrentUser: true,
-      }
-      setMessages([...messages, newMessage])
-      setMessage("")
-
-      socket.emit("send_message", { roomId, message, sender: username })
-
-      // Simulate a response after a short delay
-      setTimeout(() => {
-        const responseMessage: Message = {
-          id: (Date.now() + 1).toString(),
-          sender: "ChatBot",
-          content: `This is a simulated response to: "${message}"`,
-          timestamp: new Date(),
-          isCurrentUser: false,
-        }
-        setMessages((prev) => [...prev, responseMessage])
-      }, 1000)
-    }
+const handleSendMessage = () => {
+  if (message.trim()) {
+    socket.emit("send_message", {
+      roomID: roomId,
+      message,
+      sender: username,
+    });
+    setMessage("");
   }
+}
+
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -187,9 +181,12 @@ export default function ChatRoom() {
                   <div>
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-sm font-medium">{msg.sender}</span>
-                      <span className="text-xs text-muted-foreground">
-                        {msg.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-                      </span>
+                        <span className="text-xs text-muted-foreground">
+                          {msg.timestamp && new Date(msg.timestamp).toLocaleTimeString([], {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </span>
                     </div>
                     <div
                       className={`p-3 rounded-lg ${
