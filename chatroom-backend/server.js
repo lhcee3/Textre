@@ -33,7 +33,8 @@ app.get('/messages/:roomID', async (req, res) => {
     .from('messages')
     .select('*')
     .eq('room_id', roomID)
-    .order('created_at', { ascending: true });
+    .order('created_at', { ascending: true })
+    .limit(20);
 
   if (error) {
     return res.status(500).json({ error: error.message });
