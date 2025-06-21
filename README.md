@@ -6,12 +6,12 @@ A minimalist real-time chatroom app built with **Next.js**, **Socket.IO**, and *
 
 ##  Features
 
-- 🗨️ Real-time messaging with Socket.IO
-- 🔒 Room-based chat (only users in same room can chat)
-- 💾 Persistent chat history stored in Supabase
-- 🧹 Auto-deletes messages older than 5 days
-- 🎨 Styled with Tailwind CSS + ShadCN components
-- 🌘 Light/Dark mode with toggle
+-  Real-time messaging with Socket.IO
+-  Room-based chat (only users in same room can chat)
+-  Persistent chat history stored in Supabase
+-  Auto-deletes messages older than 5 days
+-  Styled with Tailwind CSS + ShadCN components
+-  Light/Dark mode with toggle
 
 ---
 
@@ -79,14 +79,14 @@ npm run dev
 
 
 
-## 🧼 Auto-Cleanup Policy
+##  Auto-Cleanup Policy
 
 - Messages older than **5 days** are deleted using:
 - Run manually in Supabase SQL Editor or schedule with a CRON job
 
 ---
 
-## 📁 Folder Structure
+##  Folder Structure
 
 ```
 textre-chat/
@@ -95,7 +95,7 @@ textre-chat/
 └── .env                  # Env file for Supabase keys
 ```
 
-## 📜 License
+##  License
 
 MIT License 
 
