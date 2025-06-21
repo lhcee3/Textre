@@ -69,7 +69,7 @@ npm install
 npm run dev
 ```
 
-## 💬 Message Flow
+##  Message Flow
 
 1. User joins a room by ID
 2. Sends a message → sent to backend via Socket.IO
