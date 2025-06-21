@@ -13,6 +13,7 @@ import { AnimatedLogo } from "@/components/animated-logo"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { motion } from "framer-motion"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import socket from "@/utils/socket"
 
 type Message = {
   id: string
@@ -71,6 +72,18 @@ export default function ChatRoom() {
     }
   }, [messages])
 
+  useEffect(() => {
+    socket.emit("join_room", roomId)
+
+    socket.on("receive_message", (data) => {
+      setMessages((prev) => [...prev, data])
+    })
+
+    return () => {
+      socket.off("receive_message")
+    }
+  }, [roomId])
+
   const handleSendMessage = () => {
     if (message.trim()) {
       const newMessage: Message = {
@@ -82,6 +95,8 @@ export default function ChatRoom() {
       }
       setMessages([...messages, newMessage])
       setMessage("")
+
+      socket.emit("send_message", { roomId, message, sender: username })
 
       // Simulate a response after a short delay
       setTimeout(() => {
