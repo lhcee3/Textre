@@ -139,6 +139,18 @@ export default function Home() {
           </div>
         </motion.div>
       </motion.main>
+
+        <footer style={{ marginTop: '2rem', textAlign: 'center', fontSize: '1rem', color: '#888' }}>
+        Developed by{' '}
+        <a
+          href="https://github.com/lhcee3"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: '#9233eb', fontWeight: 'bold', textDecoration: 'none' }}
+        >
+          Aneesh
+        </a>
+      </footer>
     </div>
-  )
+  );
 }
